@@ -57,29 +57,29 @@ void figlio(int fd, char* prefix, char* filename) {
 
 int filterString(int fd_source,int fd_dest, char* prefix){
 
-		int nread, i, written;
-		char read_char;
-		int found = 0;
-	
-		while((nread = read(fd_source, &read_char, sizeof(char))) != 0 ) { //till EOF
-			for(i=0; i < strlen(prefix); i++){
-				if(read_char == prefix[i]){
-					found = 1;
-				}	
-			}	
-			
-			if(found == 0) {
-                written = write(fd_dest, &read_char, sizeof(char));
+    int nread, i, written;
+    char read_char;
+    int found = 0;
 
-            
-                if (written < 0){
-                    perror("P0: errore nella scrittura sul file");
-                    return EXIT_FAILURE;
-                }
-			}
-			
-			found=0;
-		}
+    while((nread = read(fd_source, &read_char, sizeof(char))) != 0 ) { //till EOF
+        for(i=0; i < strlen(prefix); i++){
+            if(read_char == prefix[i]){
+                found = 1;
+            }
+        }
+
+        if(found == 0) {
+            written = write(fd_dest, &read_char, sizeof(char));
+
+
+            if (written < 0){
+                perror("P0: errore nella scrittura sul file");
+                return EXIT_FAILURE;
+            }
+        }
+
+        found=0;
+    }
 }
 
 	
