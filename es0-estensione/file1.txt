@@ -1,2 +1,0 @@
- cia n 1
- cia 2 n 1
