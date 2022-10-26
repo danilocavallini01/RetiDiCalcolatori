@@ -9,18 +9,34 @@ public class PutFileClient {
 
 		InetAddress addr = null;
 		int port = -1;
+		Long dimMin = 0l;
+
+		File startDirectory = new File(args[2]);
+		File[] dir = startDirectory.listFiles();
 
 		try {
-			if (args.length == 3) {
+			if (args.length == 4) {
 				addr = InetAddress.getByName(args[0]);
 				port = Integer.parseInt(args[1]);
+				dimMin = Long.parseLong(args[3]);
 			} else {
-				System.out.println("Usage: java PutFileClient serverAddr serverPort");
+				System.out.println("Usage: java PutFileClient serverAddr serverPort dir dimensions");
 				System.exit(1);
 			}
+
+			if ( port < 1024 || port > 65535 ) {
+				System.out.println("Porta non valida");
+				System.exit(2);
+			}
+
+			startDirectory = new File(args[2]);
+			if ( !startDirectory.isDirectory() ) {
+				System.out.println("Dir non è una cartella");
+				System.exit(2);
+			}
+			dir = startDirectory.listFiles();
 		}
 		catch (Exception e) {
-
 			System.out.println("Problemi, i seguenti: ");
 			e.printStackTrace();
 			System.out.println("Usage: java PutFileClient serverAddr serverPort");
@@ -31,14 +47,12 @@ public class PutFileClient {
 		FileInputStream inFile = null;
 		DataInputStream inSock = null;
 		DataOutputStream outSock = null;
+		Long lunghezza;
 		String nomeFile;
 		String absolute;
 		String comando = null;
 	
 		int i = -1;
-
-		File startDirectory = new File(args[2]);
-		File[] dir = startDirectory.listFiles();
 
 		try {
 			try {
@@ -57,6 +71,11 @@ public class PutFileClient {
 				i++;
 				nomeFile = dir[i].getName();
 				absolute = dir[i].getAbsolutePath();
+				lunghezza = dir[i].length();
+
+				if ( lunghezza < dimMin ) {
+					continue;
+				}
 
 				try {
 					outSock.writeUTF(nomeFile);
