@@ -18,8 +18,10 @@ public class FileUtility {
 	    try {
 	    	// esco dal ciclo all lettura di un valore negativo -> EOF
 	    	// N.B.: la funzione consuma l'EOF
-	    	while ((buffer=src.read()) >= 0 && i++ < dim) {
+	    	while (i < dim) {
+				buffer = src.read();
 	    		dest.write(buffer);
+				i++;
 	    	}
 
 			dest.flush();

@@ -41,7 +41,8 @@ public class PutFileServer {
                 inSock = new DataInputStream(socket.getInputStream());
                 outSock = new DataOutputStream(socket.getOutputStream());
 
-                while ((file = inSock.readUTF()) != null) {
+                while (!socket.isClosed() ) {
+                    file = inSock.readUTF();
                     System.out.println(">------------------------------------");
                    
                     System.out.println("Ricevuto dal client file: " + file);
