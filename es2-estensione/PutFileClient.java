@@ -11,16 +11,16 @@ public class PutFileClient {
 		int port = -1;
 		Long dimMin = 0l;
 
-		File startDirectory = new File(args[2]);
-		File[] dir = startDirectory.listFiles();
+		File[] directiories;
+		File[] files;
 
 		try {
-			if (args.length == 4) {
+			if (args.length < 4) {
 				addr = InetAddress.getByName(args[0]);
 				port = Integer.parseInt(args[1]);
-				dimMin = Long.parseLong(args[3]);
+				dimMin = Long.parseLong(args[2]);
 			} else {
-				System.out.println("Usage: java PutFileClient serverAddr serverPort dir dimensions");
+				System.out.println("Usage: java PutFileClient serverAddr serverPort dimensions dir1 [ dir2 ... dirN ]");
 				System.exit(1);
 			}
 
@@ -29,6 +29,10 @@ public class PutFileClient {
 				System.exit(2);
 			}
 
+			directiories = new File[args.length - 3]
+			for ( int i = 0 ; i < args.length - 3 ; i ++) {
+
+			}
 			startDirectory = new File(args[2]);
 			if ( !startDirectory.isDirectory() ) {
 				System.out.println("Dir non è una cartella");
