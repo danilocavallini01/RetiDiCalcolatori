@@ -60,47 +60,11 @@ class PutFileServerThread extends Thread {
             inSock = new DataInputStream(socket.getInputStream());
             outSock = new DataOutputStream(socket.getOutputStream());
 
-            while (!socket.isClosed() ) {
-                path = inSock.readUTF();
-                dir = new File(path);
-
-                if ( !dir.exists() ) {
-                    dir.mkdir();
-                }
-
-                System.out.println(">------------------------------------<");
-                System.out.println("<< directory: " + path);
-
-                numeroFile = inSock.readInt();
-                System.out.println("<< numero files: " + numeroFile);
-
-                for ( int i = 0; i < numeroFile; i++) {
-                    file = path + File.separator + inSock.readUTF();
-                    System.out.println("\n<< file: " + file);
-
-                    if (new File(file).exists()) {
-                        outSock.writeUTF("salta");
-                        System.out.println("File gia presente: salta");
-                    } else {
-                        outSock.writeUTF("attiva");
-    
-                        dim = inSock.readLong();
-    
-                        System.out.println("File non presente: attiva");
-                        System.out.println("<< file di dimensione: " + dim);
-    
-                        outFile = new FileOutputStream(file);
-                        FileUtility.trasferisci_a_byte_file_binario(inSock,new DataOutputStream(outFile), dim);
-                        outFile.close();
-                        System.out.println("$$ finito di trasferire file: " + file);
-                    }
-                }
-                
-            }
+            FTPHandler.GET(outSock, inSock, socket);
 
         } catch (EOFException e) {
             System.out.println("\nRicezione eseguita con successo da un host");
-            System.out.println("======================================");
+            System.out.println(">------------------------------------<");
         } catch (NumberFormatException e) {
             System.err.println("Problemi nella socket: " + e.getMessage());
             e.printStackTrace();
