@@ -63,6 +63,10 @@ class RentACarServerThread extends Thread {
                                 mustRemove = new File(targa + "_img/");
 
                                 if ( mustRemove.exists() && mustRemove.isDirectory() ) {
+                                    for ( File f : mustRemove.listFiles() ) {
+                                        f.delete();
+                                    }
+                                    
                                     mustRemove.delete();
                                 }
                             }
