@@ -93,6 +93,7 @@ int main(int argc, char *argv[]) {
         printf("Inserire:\n1\tAggiungi stanza\n2\tElimina utente\n^D\tper terminare: ");
     } // while
 
+    free(nome);
     // Libero le risorse, distruggendo il gestore di trasporto
     clnt_destroy(cl);
     exit(0);
