@@ -1,0 +1,36 @@
+
+
+!!!! NOME ALL'INIZIO DEL FILE !!!!!
+
+Per Controllare se file è dir in C
+dd1->d_type == DT_DIR
+DT_REG per file
+
+1) Ricordarsi le close
+
+2) Ricordarsi le free(RPC)
+
+3) Try/Catch con bufferedReader/Writer
+
+4) Riscrivere le classi controllando gli errori
+
+5) clnt_destroy(cl) in RPC con if sbagliati(Client)
+
+6) Fare htonl e ntohl nella select
+
+7) lseek in c per vedere grandezza file
+
+8) In Select datagram inviare le strutture direttamente
+
+9) Inviare prima lunghezza array e poi elementi array
+
+10) Lanciare RemoteException quando gli argomenti passati al server sono null(RMI)
+
+11) shutdown(socket_conn, SHUT_RD/SHUT_WR) fuori del while ma dentro la fork(Select) e a fine ClientStream
+
+12) Per leggere un intero do while con un if che fa un break quando lo legge(isNumber) e poi atoi sulla stringa(Select)
+
+13) Return nei catch delle java socket per non far chiudere il thread
+
+14) Eliminare prima tutti file dentro una cartella e poi la cartella
+
